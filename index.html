@@ -224,9 +224,9 @@
     </header>
 
     <section class="panel">
-      <label for="q">输入学号或姓名查询</label>
+      <label for="q">输入姓名 / 学院 / 校区查询</label>
       <div class="row">
-        <input id="q" type="search" placeholder="例如：学号后四位 / 完整姓名" autocomplete="off" />
+        <input id="q" type="search" placeholder="例如：王昕冉 / 经金学院 / 厦门" autocomplete="off" />
         <button id="btnSearch" type="button">查询</button>
         <button id="btnClear" class="secondary" type="button">清空</button>
       </div>
@@ -245,7 +245,7 @@
     </section>
 
     <footer>
-      数据来源：腾讯文档课时表 · 经本地一键同步发布到 Gitee Pages<br />
+      数据来源：腾讯文档《华侨大学第26期青马班课时统计》· 本地同步发布<br />
       若显示旧数据，请强制刷新页面（微信内可关掉重开）
     </footer>
   </div>
@@ -339,7 +339,7 @@
         search();
       } catch (e) {
         stateEl.className = "error";
-        stateEl.textContent = "数据加载失败。请确认已运行一键同步，并已开启 Gitee Pages。";
+        stateEl.textContent = "数据加载失败，请稍后刷新重试。";
         document.getElementById("pageMeta").textContent = "数据未就绪";
       }
     }
