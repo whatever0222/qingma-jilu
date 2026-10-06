@@ -18,3 +18,5 @@ desktop.ini
 .env
 *.token
 token.txt
+github-config.json
+学生访问地址.txt

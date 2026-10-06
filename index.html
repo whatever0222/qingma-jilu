@@ -326,7 +326,11 @@
 
     async function boot() {
       try {
-        const res = await fetch("./data.json?t=" + Date.now(), { cache: "no-store" });
+        // 兼容 jsDelivr：用时间戳路径参数降低 CDN 旧缓存概率
+        const res = await fetch("./data.json?v=" + Date.now(), {
+          cache: "no-store",
+          headers: { "Cache-Control": "no-cache" },
+        });
         if (!res.ok) throw new Error("HTTP " + res.status);
         DATA = await res.json();
         if (DATA.title) document.getElementById("pageTitle").textContent = DATA.title;
