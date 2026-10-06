@@ -1,0 +1,20 @@
+# 本地课时表，不要推到公开仓库
+qingma.xlsx
+*.xlsx
+~$*
+
+# Python / 本地环境
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 系统垃圾
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 切勿把令牌写进仓库
+.env
+*.token
+token.txt

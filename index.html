@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b3d2e" />
+  <title>华侨大学第26期青马班课时统计</title>
+  <style>
+    :root {
+      --bg: #f3f6f4;
+      --card: #ffffff;
+      --ink: #14231c;
+      --muted: #5b6b63;
+      --line: #d7e0db;
+      --brand: #0b3d2e;
+      --brand-2: #1f6b4f;
+      --accent: #c45c26;
+      --ok: #1b7a4a;
+      --shadow: 0 10px 30px rgba(11, 61, 46, 0.08);
+      --radius: 16px;
+      --font: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 500px at 10% -10%, #d8efe4 0%, transparent 55%),
+        radial-gradient(900px 420px at 100% 0%, #f7e6d8 0%, transparent 50%),
+        var(--bg);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      width: min(920px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    header {
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--brand-2);
+      background: rgba(31, 107, 79, 0.1);
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(22px, 4.5vw, 30px);
+      line-height: 1.25;
+      color: var(--brand);
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    input[type="search"] {
+      flex: 1 1 220px;
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 14px;
+      font-size: 16px;
+      outline: none;
+      background: #fbfcfb;
+      color: var(--ink);
+    }
+
+    input[type="search"]:focus {
+      border-color: var(--brand-2);
+      box-shadow: 0 0 0 3px rgba(31, 107, 79, 0.12);
+      background: #fff;
+    }
+
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(160deg, var(--brand-2), var(--brand));
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    button.secondary {
+      background: #eef3f0;
+      color: var(--brand);
+    }
+
+    .tips {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .stats {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .stat {
+      flex: 1 1 120px;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+
+    .stat b {
+      display: block;
+      font-size: 22px;
+      color: var(--brand);
+      margin-top: 4px;
+    }
+
+    .stat span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .empty, .error, .loading {
+      text-align: center;
+      color: var(--muted);
+      padding: 28px 10px;
+      font-size: 15px;
+    }
+
+    .error { color: #b42318; }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 10px;
+      background: #fff;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: var(--brand);
+    }
+
+    .kv {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 6px 10px;
+      font-size: 14px;
+    }
+
+    .kv dt {
+      color: var(--muted);
+    }
+
+    .kv dd {
+      margin: 0;
+      word-break: break-word;
+    }
+
+    .highlight {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    footer {
+      margin-top: 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 520px) {
+      .kv { grid-template-columns: 78px 1fr; }
+      button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="eyebrow">华侨大学 · 青马班</div>
+      <h1 id="pageTitle">第26期青马班课时统计</h1>
+      <div class="meta" id="pageMeta">正在加载数据…</div>
+    </header>
+
+    <section class="panel">
+      <label for="q">输入学号或姓名查询</label>
+      <div class="row">
+        <input id="q" type="search" placeholder="例如：学号后四位 / 完整姓名" autocomplete="off" />
+        <button id="btnSearch" type="button">查询</button>
+        <button id="btnClear" class="secondary" type="button">清空</button>
+      </div>
+      <div class="tips">支持模糊匹配；不输入则显示全部记录（适合老师核对）。</div>
+    </section>
+
+    <div class="stats">
+      <div class="stat"><span>总人数</span><b id="statTotal">-</b></div>
+      <div class="stat"><span>当前结果</span><b id="statHit">-</b></div>
+      <div class="stat"><span>数据更新</span><b id="statTime" style="font-size:14px;margin-top:8px">-</b></div>
+    </div>
+
+    <section class="panel" id="resultPanel">
+      <div class="loading" id="state">加载中…</div>
+      <div id="list"></div>
+    </section>
+
+    <footer>
+      数据来源：腾讯文档课时表 · 经本地一键同步发布到 Gitee Pages<br />
+      若显示旧数据，请强制刷新页面（微信内可关掉重开）
+    </footer>
+  </div>
+
+  <script>
+    const stateEl = document.getElementById("state");
+    const listEl = document.getElementById("list");
+    const qEl = document.getElementById("q");
+    let DATA = { headers: [], records: [], updatedAt: "", title: "", count: 0 };
+
+    const KEY_ALIASES = {
+      name: ["姓名", "名字", "学生姓名", "学员姓名"],
+      id: ["学号", "学生学号", "工号", "编号"],
+      hours: ["总课时", "课时合计", "累计课时", "课时", "已修课时", "学时"],
+    };
+
+    function pick(record, aliases) {
+      for (const k of aliases) {
+        if (record[k] !== undefined && String(record[k]).trim() !== "") return String(record[k]);
+      }
+      return "";
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function render(records) {
+      document.getElementById("statTotal").textContent = String(DATA.count ?? DATA.records.length);
+      document.getElementById("statHit").textContent = String(records.length);
+      document.getElementById("statTime").textContent = DATA.updatedAt || "-";
+
+      if (!records.length) {
+        stateEl.style.display = "block";
+        stateEl.className = "empty";
+        stateEl.textContent = "没有匹配结果，请换个关键词试试。";
+        listEl.innerHTML = "";
+        return;
+      }
+
+      stateEl.style.display = "none";
+      const prefer = new Set([
+        ...KEY_ALIASES.name,
+        ...KEY_ALIASES.id,
+        ...KEY_ALIASES.hours,
+      ]);
+
+      listEl.innerHTML = records.map((r) => {
+        const name = pick(r, KEY_ALIASES.name) || "未命名";
+        const sid = pick(r, KEY_ALIASES.id);
+        const hours = pick(r, KEY_ALIASES.hours);
+        const rest = (DATA.headers || Object.keys(r)).filter((h) => !prefer.has(h) && String(r[h] ?? "") !== "");
+        const rows = [];
+        if (sid) rows.push(`<dt>学号</dt><dd>${escapeHtml(sid)}</dd>`);
+        if (hours) rows.push(`<dt>课时</dt><dd class="highlight">${escapeHtml(hours)}</dd>`);
+        for (const h of rest) {
+          rows.push(`<dt>${escapeHtml(h)}</dt><dd>${escapeHtml(r[h])}</dd>`);
+        }
+        return `<article class="card"><h3>${escapeHtml(name)}</h3><dl class="kv">${rows.join("")}</dl></article>`;
+      }).join("");
+    }
+
+    function search() {
+      const q = qEl.value.trim().toLowerCase();
+      if (!q) {
+        render(DATA.records);
+        return;
+      }
+      const hit = DATA.records.filter((r) =>
+        Object.values(r).some((v) => String(v).toLowerCase().includes(q))
+      );
+      render(hit);
+    }
+
+    async function boot() {
+      try {
+        const res = await fetch("./data.json?t=" + Date.now(), { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        DATA = await res.json();
+        if (DATA.title) document.getElementById("pageTitle").textContent = DATA.title;
+        document.getElementById("pageMeta").textContent =
+          `共 ${DATA.count ?? DATA.records.length} 人 · 更新于 ${DATA.updatedAt || "未知"}`;
+        search();
+      } catch (e) {
+        stateEl.className = "error";
+        stateEl.textContent = "数据加载失败。请确认已运行一键同步，并已开启 Gitee Pages。";
+        document.getElementById("pageMeta").textContent = "数据未就绪";
+      }
+    }
+
+    document.getElementById("btnSearch").addEventListener("click", search);
+    document.getElementById("btnClear").addEventListener("click", () => {
+      qEl.value = "";
+      search();
+      qEl.focus();
+    });
+    qEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") search();
+    });
+
+    boot();
+  </script>
+</body>
+</html>
